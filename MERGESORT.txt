@@ -1,0 +1,55 @@
+13. MERGESORT
+
+#include<stdio.h>
+#include<stdlib.h>
+#define max_size 5
+void mergesort(int,int);
+void mergearray(int,int,int,int);
+int A[max_size];
+int main()
+{
+  int i;
+  printf("Enter %d elements for sorting\n",max_size);
+  for(i=0;i<max_size;i++)
+  scanf("%d",&A[i]);
+  printf("Entered data\n");
+  for(i=0;i<max_size;i++)
+  {
+    printf("\t%d",A[i]);
+  }
+  mergesort(0,max_size-1);
+  printf("sorted Data\n");
+  for(i=0;i<max_size;i++)
+  {
+    printf("\t%d",A[i]);
+  }
+}
+void mergesort(int i,int j)
+{
+  int m;
+  if(i<j)
+  {
+    m=(i+j)/2;
+    mergesort(i,m);
+    mergesort(m+1,j);
+    mergearray(i,m,m+1,j);
+  }
+}
+void mergearray(int a,int b,int c,int d)
+{
+int t[50];
+int i=a,j=c,k=0;
+while(i<=b && j<=d)
+{
+  if(A[i]<A[j])
+  t[k++]=A[i++];
+  else
+  t[k++]=A[j++];
+}
+while(i<=b)
+t[k++]=A[i++];
+while(j<=d)
+t[k++]=A[j++];
+for(i=a,j=0;j<=d;i++,j++)
+A[i]=t[j];
+}

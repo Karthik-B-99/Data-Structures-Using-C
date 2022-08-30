@@ -1,0 +1,92 @@
+11. BINARY TREE TRAVERSALS
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+  int info;
+  struct node*llink;
+  struct node*rlink;
+};
+typedef struct node*NODE;
+NODE root=NULL;
+NODE getnode()
+{
+  NODE x;
+  x=(struct node*)malloc(sizeof(struct node));
+  return x;
+}
+void inorder(NODE root)
+{
+  if(root!=NULL)
+  {
+    inorder(root->llink);
+    printf("%d",root->info);
+    inorder(root->rlink);
+  }
+}
+void preorder(NODE root)
+{
+  if(root!=NULL)
+  {
+    printf("%d",root->info);
+    preorder(root->llink);
+    preorder(root->rlink);
+
+  }
+}
+void postorder(NODE root)
+{
+  if(root!=NULL)
+  {
+    postorder(root->llink);
+    postorder(root->rlink);
+    printf("%d",root->info);
+  }
+}
+void insert(int item)
+{
+  NODE temp=getnode();
+  temp->info=item;
+  temp->llink=NULL;
+  temp->rlink=NULL;
+  if(root==NULL)
+  {
+    root=temp;
+  }
+  else
+  {
+    NODE prev;
+    NODE ptr=root;
+    while(ptr!=NULL)
+    {
+      prev=ptr;
+      if(item<ptr->info)
+      ptr=ptr->llink;
+      else
+      ptr=ptr->rlink;
+    }
+    if(item<prev->info)
+    prev->llink=temp;
+    else
+    prev->rlink=temp;
+  }
+}
+int main()
+{
+  int i,n,item;
+  printf("Enter the number of elements\n");
+  scanf("%d",&n);
+  for(i=1;i<=n;i++)
+  {
+  printf("Enter the element\n");
+  scanf("%d",&item);
+  insert(item);
+  }
+printf("\nInorder\n");
+inorder(root);
+printf("\nPreorder\n");
+preorder(root);
+printf("\nPostorder\n");
+postorder(root);
+return 0;
+}

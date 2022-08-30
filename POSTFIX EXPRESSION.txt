@@ -1,0 +1,90 @@
+9. POSTFIX EXPRESSION
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#define max_size 100
+#define postfix_size 100
+int stack[max_size],top=-1;
+void push(int item)
+{
+  if(top>=max_size-1)
+{  
+  printf("Stack Overflow\n");
+}
+else
+{
+  top=top+1;
+  stack[top]=item;
+}
+}
+int pop()
+{
+  int item;
+if(top<0)
+{
+  printf("Stack Underflow\n");
+}
+else
+{
+  item=stack[top];
+  top=top-1;
+  return item;
+}
+return 0;
+}
+int evalpostfix(char postfix[])
+{
+  int i;
+  char ch;
+  int val;
+  int A,B;
+  for(i=0;postfix[i]!=')';i++)
+  {
+    ch=postfix[i];
+    if(isdigit(ch))
+    {
+      push(ch - '0');
+    }
+    else if(ch=='+'||ch=='-'||ch=='*'||ch=='/')
+    {
+      A=pop();
+      B=pop();
+      switch(ch)
+      {
+        case '*':
+        val=B*A;
+        break;
+        case '/':
+        val=B/A;
+        break;
+        case '+':
+        val=B+A;
+        break;
+        case '-':
+        val=B-A;
+        break;
+      }
+      push(val);
+    }
+
+      }
+      printf("The result is %d\n",pop());
+      return 0;
+    }
+    int main()
+    {
+      int i;
+      char postfix[postfix_size];
+      printf("Enter the expression, \nEnter right paranthesis ')' for end of expression\n");
+      for(i=0;i<=postfix_size-1;i++)
+      {
+      scanf("%c",&postfix[i]);
+      if(postfix[i]==')')
+      {
+        break;
+      }
+      }
+      evalpostfix(postfix);
+      return 0;
+    }

@@ -1,0 +1,56 @@
+1. Search in 2D Array
+
+#include <stdio.h>
+int input(int n,int m,int a[m][n]);
+int search(int m,int n,int a[m][n]);
+int main()
+{
+    int m,n;
+    printf("Enter the order of the matrix\n");
+    scanf("%d%d",&m,&n);
+    int a[m][n];
+    input(m,n,a);
+    search(m,n,a);
+    return 0;
+}
+int input(int m,int n,int a[m][n])
+{
+    printf("Enter the elements\n");
+    for(int i=0;i<m;i++)
+    for(int j=0;j<n;j++)
+    scanf("%d",&a[i][j]);
+    return 0;
+}
+    int search(int m,int n,int a[m][n])
+    {
+        int ele;
+        printf("Enter the search element\n");
+        scanf("%d",&ele);
+        int loc=-1,loc1=-1;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(a[i][j]==ele)
+                {
+                    loc=i;
+                    loc1=j;
+                    break;
+                }
+            }
+        }
+    if(loc<0)
+    {
+        printf("Element not present");
+    }
+    else
+    printf("The element is present in (%d,%d) position",loc,loc1);
+    return 0;
+}
+
+
+
+
+
+
+

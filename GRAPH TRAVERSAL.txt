@@ -1,0 +1,103 @@
+14. GRAPH TRAVERSAL
+
+#include<stdio.h>
+#include<stdlib.h>
+int top=-1,front=-1,rear=-1,a[5],status[5],n=5;
+int g[4][4]={{0,1,0,1},{1,0,1,0},{0,1,0,1},{1,0,1,0}};
+void push(int p)
+{
+  top=top+1;
+  a[top]=p;
+}
+void pop()
+{
+  printf("%d",a[top]);
+  top=top-1;
+}
+void insert(int item)
+{
+  if(rear==-1)
+  {
+    front=0;
+    rear=0;
+  }
+  else
+  rear=rear+1;
+  a[rear]=item;
+}
+void del()
+{
+  printf("%d",a[front]);
+  if(front==rear)
+  {
+    front=-1;
+    rear=-1;
+  }
+  else
+  front=front+1;
+}
+void DFS(int p)
+{
+  int i,k;
+  for(i=0;i<n;i++)
+  status[i]=1;
+  push(p);
+  status[p]=2;
+  while(top!=-1)
+  {
+    status[a[top]]=3;
+    k=a[top];
+    pop();
+    for(i=0;i<n;i++)
+    {
+      if(g[k][i]==1 && status[i]==1)
+      {
+        push(i);
+        status[i]=2;
+      }
+    }
+  }
+}
+void BFS(int p)
+{
+  int i,k;
+  for(i=0;i<n;i++)
+  status[i]=1;
+  insert(p);
+  status[p]=2;
+  while(front!=-1 && rear!=-1)
+  {
+    status[a[front]]=3;
+    k=a[front];
+    del();
+    for(i=0;i<n;i++)
+    {
+      if(g[k][i]==1 && status[i]==1)
+      {
+        insert(i);
+        status[i]=2;
+      }
+
+    }
+  }
+
+}
+void bst()
+{
+  int i;
+  for(i=0;i<n;i++)
+  status[i]=1;
+  for(i=0;i<n;i++)
+  {
+    if(status[i]==1)
+    BFS(i);
+  }
+}
+int main()
+{
+  printf("DFS is\n");
+  DFS(0);
+  printf("BFS is\n");
+  bst();
+  return 0;
+}
